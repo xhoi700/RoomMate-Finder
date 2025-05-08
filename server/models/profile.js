@@ -14,6 +14,7 @@ const Profile = sequelize.define('Profile', {
     allowNull: false
   },
   budget: {
+<<<<<<< HEAD
     type: DataTypes.FLOAT,
     allowNull: false
   },
@@ -23,12 +24,24 @@ const Profile = sequelize.define('Profile', {
   },
   isStudent: {
     type: DataTypes.BOOLEAN,
+=======
+    type: DataTypes.FLOAT,  // or DataTypes.INTEGER
+    allowNull: false
+  },
+  isGirl: {
+    type: DataTypes.BOOLEAN,  // true = girl, false = boy
+    allowNull: false
+  },
+  isStudent: {
+    type: DataTypes.BOOLEAN,  // true = student, false = in work
+>>>>>>> 384baa2feb8da9c65449e6a53f57861f6b63ce3c
     allowNull: false
   },
   contactEmail: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
+<<<<<<< HEAD
   },
   userId: { // Define userId explicitly
     type: DataTypes.INTEGER,
@@ -41,6 +54,12 @@ const Profile = sequelize.define('Profile', {
 });
 
 // Relationship
+=======
+  }
+});
+
+// Relationship: A Profile belongs to a User
+>>>>>>> 384baa2feb8da9c65449e6a53f57861f6b63ce3c
 Profile.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Profile;

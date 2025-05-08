@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // server.js
 const express = require('express');
 const app = express();
@@ -23,6 +24,18 @@ sequelize.authenticate()
     return sequelize.sync({ alter: true });  // Sync schema changes to the DB
   })
   .then(() => console.log('🛠️ Tables synced.'))
+=======
+const express = require('express');
+const app = express();
+const sequelize = require('./config/database');
+const userRoutes = require('./routes/userRoutes');
+
+app.use(express.json());  // Middleware to parse JSON request body
+app.use('/api/users', userRoutes);  // Use the userRoutes for `/api/users` endpoint
+
+sequelize.authenticate()
+  .then(() => console.log('✅ Database connected.'))
+>>>>>>> 384baa2feb8da9c65449e6a53f57861f6b63ce3c
   .catch((err) => console.error('❌ Database error:', err));
 
 const PORT = process.env.PORT || 5000;
