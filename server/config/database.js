@@ -1,8 +1,8 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize('roommatefinder', 'root', '1234', {
-  host: 'localhost',
-  dialect: 'mysql'
+const sequelize = new Sequelize("roommatefinder", "root", "1234", {
+  host: "localhost",
+  dialect: "mysql",
 });
 
-module.exports = sequelize;
+export default sequelize;
