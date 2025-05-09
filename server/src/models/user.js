@@ -78,7 +78,7 @@ export const UserModel = (sequelize) => {
       budget: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: "unknown",
+        defaultValue: 0.00,
         validate: {
           min: { args: [0], msg: "Budget must be a non-negative number" },
         },
