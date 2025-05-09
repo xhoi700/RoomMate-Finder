@@ -48,6 +48,41 @@ export const UserModel = (sequelize) => {
           },
         },
       },
+      gender: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+        defaultValue: 'other',
+        validate: {
+          isIn: {
+            args: [['male','female','other']],
+            msg: 'Gender must be one of: male, female, other'
+          }
+        }
+      },
+      city: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        defaultValue: 'unknown',
+        validate: {
+          notEmpty: { msg: 'City cannot be empty' },
+        },
+      },   
+      address: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: 'unknown',
+        validate: {
+          notEmpty: { msg: 'Address cannot be empty' },
+        },
+      },
+      budget: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+        defaultValue: 'unknown',
+        validate: {
+          min: { args: [0], msg: 'Budget must be a non-negative number' },
+        },
+      },
     },
     {
       sequelize,
@@ -55,6 +90,23 @@ export const UserModel = (sequelize) => {
       tableName: "users",
       timestamps: true,
       underscored: true,
+      defaultScope: {
+        attributes: { exclude: ['password'] },
+      },
+      scopes: {
+        filterByCity(city) {
+          return { where: { city } };
+        },
+        filterByAddress(address) {
+          return { where: { address } };
+        },
+        filterByBudget(budget) {
+          return { where: { budget } };
+        },
+        filterByBudgetRange(min, max) {
+          return { where: { budget: { [Op.between]: [min, max] } } };
+        },
+      },
       hooks: {
         beforeCreate: async (user) => {
           if (user.password) {
