@@ -51,37 +51,58 @@ export const UserModel = (sequelize) => {
       gender: {
         type: DataTypes.STRING(10),
         allowNull: false,
-        defaultValue: 'other',
+        defaultValue: "other",
         validate: {
           isIn: {
-            args: [['male','female','other']],
-            msg: 'Gender must be one of: male, female, other'
-          }
-        }
+            args: [["male", "female", "other"]],
+            msg: "Gender must be one of: male, female, other",
+          },
+        },
       },
       city: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        defaultValue: 'unknown',
+        defaultValue: "unknown",
         validate: {
-          notEmpty: { msg: 'City cannot be empty' },
+          notEmpty: { msg: "City cannot be empty" },
         },
-      },   
+      },
       address: {
         type: DataTypes.TEXT,
         allowNull: false,
-        defaultValue: 'unknown',
+        defaultValue: "unknown",
         validate: {
-          notEmpty: { msg: 'Address cannot be empty' },
+          notEmpty: { msg: "Address cannot be empty" },
         },
       },
       budget: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 'unknown',
+        defaultValue: "unknown",
         validate: {
-          min: { args: [0], msg: 'Budget must be a non-negative number' },
+          min: { args: [0], msg: "Budget must be a non-negative number" },
         },
+      },
+      role: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+        validate: {
+          isIn: {
+            args: [["student", "employee"]],
+            msg: "Role must be student or employee",
+          },
+        },
+      },
+      homePet: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        validate: {
+          notEmpty: { msg: "Home pet cannot be empty" },
+        },
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
       },
     },
     {
@@ -91,7 +112,7 @@ export const UserModel = (sequelize) => {
       timestamps: true,
       underscored: true,
       defaultScope: {
-        attributes: { exclude: ['password'] },
+        attributes: { exclude: ["password"] },
       },
       scopes: {
         filterByCity(city) {
@@ -105,6 +126,9 @@ export const UserModel = (sequelize) => {
         },
         filterByBudgetRange(min, max) {
           return { where: { budget: { [Op.between]: [min, max] } } };
+        },
+        filterByRole(role) {
+          return { where: { role } };
         },
       },
       hooks: {
