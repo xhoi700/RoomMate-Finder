@@ -5,6 +5,7 @@ import {
   getProfile,
   updateProfile,
   deleteProfile,
+  findMatches, // <-- imported findMatches function
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -37,8 +38,13 @@ router.get("/profile", getProfile);
  */
 router.put("/profile", updateProfile);
 
-
-// ... your existing POST/GET/PUT routes ...
+// New route for finding matches
+/**
+ * @route   GET /api/users/matches
+ * @desc    Find matching users based on similar features
+ * @access  Protected (add authentication in the future)
+ */
+router.get("/matches", findMatches); // <-- added findMatches route
 
 /**
  * @route   DELETE /api/users/profile
@@ -48,5 +54,3 @@ router.put("/profile", updateProfile);
 router.delete('/profile', deleteProfile);
 
 export default router;
-
-
