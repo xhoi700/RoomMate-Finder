@@ -28,9 +28,18 @@ app.use(
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+// Test middleware to hard-code a logged-in user
+app.use((req, res, next) => {
+	req.userId = 3;    // <-- change this to the ID of a real registered user
+	next();
+  });
+  
+
 // Routes
 app.use("/api/users", userRoutes);
 // app.use('/api/matches', matchRoutes);
+
+
 
 // DB & server startup
 sequelize

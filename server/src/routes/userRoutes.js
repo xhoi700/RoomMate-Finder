@@ -4,6 +4,7 @@ import {
   login,
   getProfile,
   updateProfile,
+  deleteProfile,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -36,4 +37,16 @@ router.get("/profile", getProfile);
  */
 router.put("/profile", updateProfile);
 
+
+// ... your existing POST/GET/PUT routes ...
+
+/**
+ * @route   DELETE /api/users/profile
+ * @desc    Delete current user profile
+ * @access  Public (or protected once you add real auth)
+ */
+router.delete('/profile', deleteProfile);
+
 export default router;
+
+
